@@ -13,16 +13,16 @@ class OrderProcessor
         // Calculate total
         $subtotal = $product->price * $quantity;
         $tax = $subtotal * $this->taxRate;
-        $total = $subtotal + $tax;
+        $orderResult = new OrderResult($subtotal, $tax, $subtotal + $tax);
 
         // Save to database
-        $this->db->query("INSERT INTO orders VALUES (NULL, '{$customer->name}', '{$customer->email}', '{$product->id}', $total)");
+        $this->db->query("INSERT INTO orders VALUES (NULL, '{$customer->name}', '{$customer->email}', '{$product->id}', {$orderResult->total})");
         
         // Send email
-        $this->mailer->send($customer->email, "Order Confirmation", "Dear {$customer->name}, your order for $quantity x {$product->name} totaling $$total has been placed.");
+        $this->mailer->send($customer->email, "Order Confirmation", "Dear {$customer->name}, your order for $quantity x {$product->name} totaling \${$orderResult->total} has been placed.");
         
         // Log
-        $this->logger->log("Order placed: {$customer->name}, {$customer->email}, {$customer->phone}, {$customer->address}, {$customer->city}, {$customer->zip}, {$product->name}, $total");
+        $this->logger->log("Order placed: {$customer->name}, {$customer->email}, {$customer->phone}, {$customer->address}, {$customer->city}, {$customer->zip}, {$product->name}, {$orderResult->total}");
         
         // Also save customer
         $this->db->query("INSERT INTO customers VALUES (NULL, '{$customer->name}', '{$customer->email}', '{$customer->phone}', '{$customer->address}', '{$customer->city}', '{$customer->zip}')");
@@ -30,11 +30,11 @@ class OrderProcessor
         // Send SMS  
         if ($customer->phone != "") {
             // ... SMS sending logic duplicated from another class
-            $message = "Dear {$customer->name}, your order for $quantity x {$product->name} totaling $$total has been placed.";
+            $message = "Dear {$customer->name}, your order for $quantity x {$product->name} totaling \${$orderResult->total} has been placed.";
             $smsService = new SmsService();
             $smsService->send($customer->phone, $message);
         }
 
-        return $total;
+        return $orderResult;
     }
 }
