@@ -32,10 +32,10 @@ class OrderProcessor
     }
 
     private function notifyCustomer(Customer $customer, Product $product, int $quantity, OrderResult $orderResult): void {
-        $this->mailer->send($customer->email, "Order Confirmation", "Dear {$customer->name}, your order for $quantity x {$product->name} totaling \${$orderResult->total} has been placed.");
+        $message = "Dear {$customer->name}, your order for $quantity x {$product->name} totaling \${$orderResult->total} has been placed.";        
+        $this->mailer->send($customer->email, "Order Confirmation", $message);
         
         if ($customer->phone != "") {
-            $message = "Dear {$customer->name}, your order for $quantity x {$product->name} totaling \${$orderResult->total} has been placed.";
             $smsService = new SmsService();
             $smsService->send($customer->phone, $message);
         }

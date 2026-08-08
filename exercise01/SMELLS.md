@@ -11,3 +11,7 @@ Solution: Extracted these data clumps into dedicated Customer, Product, and Orde
 ### 3. Object-Orientation Abuser - Divergent Change / God Object
 The OrderProcessor violates the Single Responsibility Principle by handling calculations, database operations, notifications, and logging together. It has too many reasons to change.  
 Solution: Applied the Extract Method to split processOrder into dedicated private methods, leaving the main method to act purely as an orchestrator.
+
+### 4. Dispensables - Dead Code
+The exact same notification message string is duplicated for both email and SMS sending.  
+Solution: Applied the Extract Variable refactoring technique to store the formatted message string in a single local variable and reused it across both notification methods.
