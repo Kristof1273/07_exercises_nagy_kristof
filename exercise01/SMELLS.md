@@ -15,3 +15,11 @@ Solution: Applied the Extract Method to split processOrder into dedicated privat
 ### 4. Dispensables - Dead Code
 The exact same notification message string is duplicated for both email and SMS sending.  
 Solution: Applied the Extract Variable refactoring technique to store the formatted message string in a single local variable and reused it across both notification methods.
+
+### 5. Dispensables - Comments
+The method was filled with explanatory comments acting as section headers for each block of code.  
+Solution: Removed the redundant comments, because the newly extracted methods have clear and descriptive names that make the code self-documenting.
+
+### 6. Coupler - Hardcoded Instantiation
+The OrderProcessor tightly couples itself to the SmsService by instantiating it directly using the new keyword. This violates the Dependency Inversion Principle and makes the class impossible to unit test.  
+Solution: Applied Dependency Injection by removing the hardcoded instantiation and passing the SmsService as a class-level dependency, allowing for mock objects during testing.

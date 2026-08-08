@@ -8,6 +8,7 @@ class OrderProcessor
     public $mailer;
     public $logger;
     public $taxRate = 0.27;
+    public $smsService;
 
     public function processOrder(Customer $customer, Product $product, int $quantity) {
         
@@ -36,8 +37,7 @@ class OrderProcessor
         $this->mailer->send($customer->email, "Order Confirmation", $message);
         
         if ($customer->phone != "") {
-            $smsService = new SmsService();
-            $smsService->send($customer->phone, $message);
+            $this->smsService->send($customer->phone, $message);
         }
     }
 
