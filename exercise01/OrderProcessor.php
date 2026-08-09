@@ -4,13 +4,20 @@ namespace App\Exercise01;
 
 class OrderProcessor
 {
-    public $db;
-    public $mailer;
-    public $logger;
-    public $taxRate = 0.27;
-    public $smsService;
+    private $db;
+    private $mailer;
+    private $logger;
+    private $taxRate = 0.27;
+    private $smsService;
 
-    public function processOrder(Customer $customer, Product $product, int $quantity) {
+    public function __construct($db, $mailer, $logger, $smsService)     {
+        $this->db = $db;
+        $this->mailer = $mailer;
+        $this->logger = $logger;
+        $this->smsService = $smsService;
+    }
+
+    public function processOrder(Customer $customer, Product $product, int $quantity) : OrderResult {
         
         $orderResult = $this->calculateTotal($product, $quantity);
         $this->saveToDatabase($customer, $product, $orderResult);
@@ -44,8 +51,4 @@ class OrderProcessor
     private function logOrder(Customer $customer, Product $product, OrderResult $orderResult): void {
         $this->logger->log("Order placed: {$customer->name}, {$customer->email}, {$customer->phone}, {$customer->address}, {$customer->city}, {$customer->zip}, {$product->name}, {$orderResult->total}");
     }
-}
-
-
-
 }

@@ -23,3 +23,7 @@ Solution: Removed the redundant comments, because the newly extracted methods ha
 ### 6. Coupler - Hardcoded Instantiation
 The OrderProcessor tightly couples itself to the SmsService by instantiating it directly using the new keyword. This violates the Dependency Inversion Principle and makes the class impossible to unit test.  
 Solution: Applied Dependency Injection by removing the hardcoded instantiation and passing the SmsService as a class-level dependency, allowing for mock objects during testing.
+
+### 7. Coupler - Inadequate Encapsulation 
+Class properties were public, allowing external code to overwrite critical dependencies and configuration at runtime.  
+Solution: Applied the Encapsulate Field refactoring technique by changing the visibility of all properties to private and safely injecting the required dependencies through a class constructor.
