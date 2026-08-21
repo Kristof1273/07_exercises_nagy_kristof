@@ -4,7 +4,18 @@
             "App\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.95"
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "phpunit/phpunit": "^10.5"
+    },
+    "scripts": {
+        "lint": "php-cs-fixer fix src/ --rules=@PSR12 --dry-run --diff",
+        "format": "php-cs-fixer fix src/ --rules=@PSR12",
+        "test": "phpunit tests/ --testdox"
     }
 }

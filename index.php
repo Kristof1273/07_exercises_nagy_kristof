@@ -6,6 +6,9 @@ use App\Exercise01\Customer;
 use App\Exercise01\Product;
 use App\Exercise01\OrderProcessor;
 
+use App\Exercise02\Reports\ReportGenerator;
+use App\Exercise02\Formatters\JsonFormatter;
+use App\Exercise02\Savers\FileSaver;
 
 // Exercise01
 
@@ -39,3 +42,14 @@ echo "--- Rendelés eredménye ---\n";
 echo "Részösszeg: $" . $orderResult->subtotal . "\n";
 echo "Adó: $" . $orderResult->tax . "\n";
 echo "Végösszeg: $" . $orderResult->total . "\n";
+
+
+// Exercise02
+
+$data = ['Item 1', 'Item 2', 'Item 3'];
+$fileSaver = new FileSaver();
+
+$jsonGenerator = new ReportGenerator(new JsonFormatter(), $fileSaver);
+$jsonGenerator->generate($data, 'report.json');
+
+

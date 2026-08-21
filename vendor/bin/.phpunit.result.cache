@@ -1,0 +1,1 @@
+{"version":2,"defects":[],"times":{"Tests\\Exercise02\\JsonFormatterTest::testFormatReturnsValidJsonString":0.006,"Tests\\Exercise02\\ReportGeneratorTest::testGenerateCallsFormatterAndSaverCorrectly":0.014}}
