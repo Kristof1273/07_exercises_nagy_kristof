@@ -53,3 +53,6 @@ $jsonGenerator = new ReportGenerator(new JsonFormatter(), $fileSaver);
 $jsonGenerator->generate($data, 'report.json');
 
 
+// Exercise03
+
+
