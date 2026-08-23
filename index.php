@@ -10,6 +10,15 @@ use App\Exercise02\Reports\ReportGenerator;
 use App\Exercise02\Formatters\JsonFormatter;
 use App\Exercise02\Savers\FileSaver;
 
+use App\Exercise03\PartA\DatabaseConnection;
+use App\Exercise03\PartB\Order;
+use App\Exercise03\PartB\NoDiscount;
+use App\Exercise03\PartB\PercentageDiscount;
+use App\Exercise03\PartB\FixedAmountDiscount;
+use App\Exercise03\PartC\EventPublisher;
+use App\Exercise03\PartC\EmailNotifier;
+use App\Exercise03\PartC\AuditLogger;
+
 // Exercise01
 
 class DummyDb { 
@@ -55,4 +64,47 @@ $jsonGenerator->generate($data, 'report.json');
 
 // Exercise03
 
+// --- Part A: Singleton Test ---
+echo "--- Part A: Singleton Test ---\n";
+$db1 = DatabaseConnection::getInstance();
+$db2 = DatabaseConnection::getInstance();
 
+if ($db1 === $db2) {
+    echo "Success: Variables db1 and db2 point to the exact same instance in memory!\n\n";
+}
+
+// --- Part B: Strategy Test ---
+echo "--- Part B: Strategy Test ---\n";
+$basePrice = 1000.0;
+echo "Original price: $basePrice\n";
+
+$orderNormal = new Order(new NoDiscount());
+echo "No discount: " . $orderNormal->getTotal($basePrice) . "\n";
+
+$orderPercentage = new Order(new PercentageDiscount(20));
+echo "With 20% discount: " . $orderPercentage->getTotal($basePrice) . "\n";
+
+$orderFixed = new Order(new FixedAmountDiscount(150));
+echo "With 150 fixed discount: " . $orderFixed->getTotal($basePrice) . "\n\n";
+
+
+// --- Part C: Observer Test ---
+echo "--- Part C: Observer Test ---\n";
+$publisher = new EventPublisher();
+
+$emailNotifier = new EmailNotifier();
+$auditLogger = new AuditLogger();
+
+echo "-> Subscribing (EmailNotifier, AuditLogger)...\n";
+$publisher->subscribe($emailNotifier);
+$publisher->subscribe($auditLogger);
+
+echo "-> Triggering event: 'user_registered'\n";
+$publisher->notify('user_registered', ['user_id' => 42, 'email' => 'hello@example.com']);
+
+echo "\n-> Unsubscribing (EmailNotifier)...\n";
+$publisher->unsubscribe($emailNotifier);
+
+echo "-> Triggering event: 'user_login'\n";
+$publisher->notify('user_login', ['user_id' => 42, 'email' => 'hello@example.com']);
+echo "\n";
