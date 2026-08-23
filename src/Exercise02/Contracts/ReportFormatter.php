@@ -6,5 +6,8 @@ namespace App\Exercise02\Contracts;
 
 interface ReportFormatter
 {
+    /**
+     * @param array<mixed> $data
+     */
     public function format(array $data): string;
 }

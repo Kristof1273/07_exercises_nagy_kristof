@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Exercise03\PartC;
@@ -20,6 +21,10 @@ class EventPublisher
         unset($this->subscribers[$hash]);
     }
 
+    /**
+     * @param string $event
+     * @param array<string, mixed> $data
+     */
     public function notify(string $event, array $data = []): void
     {
         foreach ($this->subscribers as $subscriber) {

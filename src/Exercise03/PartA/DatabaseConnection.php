@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Exercise03\PartA;
@@ -20,7 +21,9 @@ class DatabaseConnection
         return self::$instance;
     }
 
-    private function __clone() {}
+    private function __clone()
+    {
+    }
 
     public function __wakeup()
     {

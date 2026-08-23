@@ -8,6 +8,9 @@ use App\Exercise02\Contracts\ReportFormatter;
 
 class PdfFormatter implements ReportFormatter
 {
+    /**
+     * @param array<mixed> $data
+     */
     public function format(array $data): string
     {
         return "<pdf>" . implode(",", $data) . "</pdf>";

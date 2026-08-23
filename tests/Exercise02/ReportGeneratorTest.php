@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Exercise02;
@@ -28,7 +29,7 @@ class ReportGeneratorTest extends TestCase
             ->with($testFilename, $fakeFormattedContent);
 
         $generator = new ReportGenerator($mockFormatter, $mockSaver);
-        
+
         $generator->generate($testData, $testFilename);
     }
 }

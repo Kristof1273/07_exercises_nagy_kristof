@@ -1,21 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exercise01;
 
 class OrderProcessor
 {
-    private $db;
-    private $mailer;
-    private $logger;
-    private $taxRate = 0.27;
-    private $smsService;
+    private mixed $db;
+    private mixed $mailer;
+    private mixed $logger;
+    private mixed $smsService;
+    private float $taxRate;
 
-    public function __construct($db, $mailer, $logger, $smsService)
-    {
+    public function __construct(
+        mixed $db,
+        mixed $mailer,
+        mixed $logger,
+        mixed $smsService,
+        float $taxRate = 0.27
+    ) {
         $this->db = $db;
         $this->mailer = $mailer;
         $this->logger = $logger;
         $this->smsService = $smsService;
+        $this->taxRate = $taxRate;
     }
 
     public function processOrder(Customer $customer, Product $product, int $quantity): OrderResult

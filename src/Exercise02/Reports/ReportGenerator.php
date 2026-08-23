@@ -14,7 +14,11 @@ class ReportGenerator
         private ReportSaver $saver
     ) {
     }
-
+    /**
+     * @param array<mixed> $data
+     * @param string $filename
+     *
+     */
     public function generate(array $data, string $filename): void
     {
         $content = $this->formatter->format($data);

@@ -1,14 +1,14 @@
 <?php
-
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__ . '/src') 
-    ->append([__DIR__ . '/index.php']) 
-    ->name('*.php')
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true);
+    ->in(__DIR__ . '/src')
+    ->in(__DIR__ . '/tests');
 
-$config = new PhpCsFixer\Config();
-return $config->setRules([
+return (new PhpCsFixer\Config())
+    ->setRiskyAllowed(true)
+    ->setRules([
         '@PSR12' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'strict_param' => true,
+        'declare_strict_types' => true,
     ])
     ->setFinder($finder);

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Exercise02;
@@ -12,7 +13,7 @@ class JsonFormatterTest extends TestCase
     {
         $formatter = new JsonFormatter();
         $data = ['Item 1', 'Item 2'];
-        
+
         $expectedJson = json_encode($data, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
         $result = $formatter->format($data);

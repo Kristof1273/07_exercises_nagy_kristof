@@ -1,12 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Exercise03\PartC;
 
 class AuditLogger implements SubscriberInterface
 {
+    /** @var array<int, array<string, mixed>> */
     private array $logs = [];
 
+    /**
+     * @param string $event
+     * @param array<string, mixed> $data
+     */
     public function update(string $event, array $data): void
     {
         $this->logs[] = [

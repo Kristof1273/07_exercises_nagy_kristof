@@ -1,4 +1,7 @@
 {
+    "require": {
+        "php": "^8.2"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -11,11 +14,13 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.95",
+        "phpstan/phpstan": "^1.12",
         "phpunit/phpunit": "^10.5"
     },
     "scripts": {
-        "lint": "php-cs-fixer fix src/ --rules=@PSR12 --dry-run --diff",
-        "format": "php-cs-fixer fix src/ --rules=@PSR12",
+        "lint": "php-cs-fixer fix --dry-run --diff",
+        "format": "php-cs-fixer fix",
+        "analyse": "phpstan analyse",
         "test": "phpunit tests/ --testdox"
     }
 }

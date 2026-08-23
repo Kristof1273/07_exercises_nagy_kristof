@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Exercise04;
@@ -15,12 +16,12 @@ class OrderProcessor
     private const DISCOUNT_MULTIPLIER = 0.9;
 
     /**
-     * @param array $orders
-     * @param string $category
-     * @param bool $isActive
-     * @param bool $applyDiscount
-     * @return array
-     */
+         * @param array<int, array<string, mixed>> $orders
+         * @param string $category
+         * @param bool $isActive
+         * @param bool $applyDiscount
+         * @return array<int, array<string, mixed>>
+         */
     public function processOrders(
         array $orders,
         string $category,
@@ -49,7 +50,12 @@ class OrderProcessor
 
         return $processedOrders;
     }
-
+    /**
+     * @param array<string, mixed> $order
+     * @param string $category
+     * @param bool $applyDiscount
+     * @return array<string, mixed>
+     */
     private function processCompletedOrder(array $order, string $category, bool $applyDiscount): array
     {
         $totalPrice = (float)$order['p'] * (int)$order['q'];
@@ -64,7 +70,11 @@ class OrderProcessor
             'extra' => $category,
         ];
     }
-
+    /**
+     * @param array<string, mixed> $order
+     * @param string $category
+     * @return array<string, mixed>
+     */
     private function processPendingOrder(array $order, string $category): array
     {
         return [
